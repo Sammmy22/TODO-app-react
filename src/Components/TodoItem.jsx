@@ -9,7 +9,7 @@ export default function TodoItem(props) {
         Added on: {props.time}
         <button
           onClick={() => {
-            localStorage.removeItem(props.title);
+            props.handleDelete(props.title);
           }}
           className="delete"
         >

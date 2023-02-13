@@ -1,12 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import TodoItem from "./TodoItem";
 
-export default function Content() {
-  const [items, setItems] = useState(Object.keys(localStorage) || null);
-
-  // const prevs = Object.keys(localStorage)
-
-  // setItem(prevs);
+export default function Content(props) {
+  let items = props.items;
 
   return (
     <div id="container" className="container">
@@ -16,7 +12,12 @@ export default function Content() {
         items.map((i) => {
           const task = JSON.parse(localStorage.getItem(i));
           return (
-            <TodoItem title={task.title} desc={task.desc} time={task.time} />
+            <TodoItem
+              title={task.title}
+              desc={task.desc}
+              time={task.time}
+              handleDelete={props.handleDelete}
+            />
           );
         })
       )}
