@@ -8,7 +8,7 @@ export default function App() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [todos, setTodos] = useState(
-    JSON.parse(localStorage.getItem("todoapp.Todos"))
+    JSON.parse(localStorage.getItem("todoapp.Todos")) || []
   );
 
   function changeTitle(e) {
