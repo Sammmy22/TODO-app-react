@@ -1,23 +1,29 @@
 import React from "react";
 
-export default function Header(props) {
+export default function Header({
+  title,
+  changeTitle,
+  desc,
+  changeDesc,
+  handleSubmit,
+}) {
   return (
     <div id="main">
       <input
         type="text"
         id="title"
-        value={props.title}
-        onChange={props.changeTitle}
+        value={title}
+        onChange={changeTitle}
         placeholder="Enter Task Name"
       />
       <input
         type="text"
         id="desc"
-        value={props.desc}
-        onChange={props.changeDesc}
+        value={desc}
+        onChange={changeDesc}
         placeholder="Enter Task Description"
       />
-      <button id="submit" onClick={props.handleSubmit}>
+      <button id="submit" onClick={handleSubmit}>
         Add
       </button>
     </div>

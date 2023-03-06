@@ -2,12 +2,14 @@ import "./App.css";
 import Header from "./Components/Header";
 import Content from "./Components/Content";
 import Footer from "./Components/Footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function App() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const [items, setItems] = useState(Object.keys(localStorage) || null);
+  const [todos, setTodos] = useState(
+    JSON.parse(localStorage.getItem("todoapp.Todos"))
+  );
 
   function changeTitle(e) {
     setTitle(e.target.value);
@@ -17,22 +19,27 @@ export default function App() {
     setDesc(e.target.value);
   }
 
-  const handleDelete = (item) => {
-    localStorage.removeItem(item);
-
-    setItems(Object.keys(localStorage));
+  const handleDelete = (time) => {
+    const newList = todos.filter((todo) => {
+      return todo.time !== time;
+    });
+    setTodos(newList);
   };
+
+  useEffect(() => {
+    localStorage.setItem("todoapp.Todos", JSON.stringify(todos));
+  }, [todos]);
 
   function handleSubmit() {
     if (title === "") {
       alert("Title cannot be empty");
     } else {
       const inputTime = new Date();
+      const minutes = inputTime.getMinutes();
+      const seconds = inputTime.getSeconds();
       const time = `${inputTime.getHours()}:${
-        inputTime.getMinutes() < 10
-          ? "0" + inputTime.getMinutes()
-          : inputTime.getMinutes()
-      } ${inputTime.getDate()}-${
+        minutes < 10 ? "0" + minutes : minutes
+      }:${seconds < 10 ? "0" + seconds : seconds} ${inputTime.getDate()}-${
         inputTime.getMonth() + 1
       }-${inputTime.getFullYear()}`;
 
@@ -42,9 +49,7 @@ export default function App() {
         time: time,
       };
 
-      localStorage.setItem(title, JSON.stringify(task));
-
-      setItems(Object.keys(localStorage));
+      setTodos([...todos, task]);
     }
 
     setTitle("");
@@ -61,7 +66,7 @@ export default function App() {
         changeDesc={changeDesc}
       />
       <hr />
-      <Content items={items} handleDelete={handleDelete} />
+      <Content items={todos} handleDelete={handleDelete} />
       <hr />
       <Footer />
     </div>

@@ -1,22 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import TodoItem from "./TodoItem";
 
-export default function Content(props) {
-  let items = props.items;
-
+export default function Content({ items, handleDelete }) {
   return (
     <div id="container" className="container">
       {items.length === 0 ? (
         <p style={{ textAlign: "center" }}>Nothing to show</p>
       ) : (
         items.map((i) => {
-          const task = JSON.parse(localStorage.getItem(i));
           return (
             <TodoItem
-              title={task.title}
-              desc={task.desc}
-              time={task.time}
-              handleDelete={props.handleDelete}
+              key={i.time}
+              title={i.title}
+              desc={i.desc}
+              time={i.time}
+              handleDelete={handleDelete}
             />
           );
         })

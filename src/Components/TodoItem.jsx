@@ -1,15 +1,15 @@
 import React from "react";
 
-export default function TodoItem(props) {
+export default function TodoItem({ title, desc, time, handleDelete }) {
   return (
     <article className="task">
-      <header>{props.title}</header>
-      {props.desc}
+      <header>{title}</header>
+      {desc}
       <footer>
-        Added on: {props.time}
+        Added on: {time}
         <button
           onClick={() => {
-            props.handleDelete(props.title);
+            handleDelete(time);
           }}
           className="delete"
         >
