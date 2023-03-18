@@ -6,7 +6,7 @@ export default function TodoItem({ title, desc, time, handleDelete }) {
       <header>{title}</header>
       {desc}
       <footer>
-        Added on: {time}
+        <span>Added on: {time}</span>
         <button
           onClick={() => {
             handleDelete(time);

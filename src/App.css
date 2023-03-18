@@ -48,6 +48,10 @@ article > footer {
   justify-content: space-between;
 }
 
+article > footer > span {
+  margin-top: 8px;
+}
+
 #container {
   margin: auto;
   width: 80%;
